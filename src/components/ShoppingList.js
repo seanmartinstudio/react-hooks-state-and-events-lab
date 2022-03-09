@@ -7,8 +7,16 @@ function ShoppingList({ items }) {
 const [selectedCategory, updateState] = useState("All")
 
 function handleList(event) {
-  updateState()
+  updateState(event.target.value)
 }
+
+const newArr = items.filter((item) => {
+  if (item.category === selectedCategory) {
+    return item
+  } else if (selectedCategory === "All") {
+    return items
+  }
+})
 
   return (
     <div className="ShoppingList">
@@ -21,7 +29,7 @@ function handleList(event) {
         </select>
       </div>
       <ul className="Items">
-        {items.map((item) => (
+        {newArr.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
